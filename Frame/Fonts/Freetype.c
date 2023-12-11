@@ -8,8 +8,8 @@ static FT_Library g_tLibrary;
 static FT_Face g_tFace;
 static FT_GlyphSlot g_tSlot;
 
-static int FreeTypeFontInit(char *pcFontFile, unsigned int dwFontSize);
-static int FreeTypeGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap);
+static int FreeTypeFontInit(char *pcFontFile, unsigned int dwFontSize); /*FreeType初始化字体*/
+static int FreeTypeGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap); /*FreeType获取字体位图*/
 
 static T_FontOpr g_tFreeTypeFontOpr = {
     .name = "freetype",
@@ -17,6 +17,16 @@ static T_FontOpr g_tFreeTypeFontOpr = {
     .GetFontBitmap = FreeTypeGetFontBitmap,
 };
 
+/*
+*********************************************************************************************************
+*	函 数 名: FreeTypeFontInit
+*	功能说明: FreeType 初始化字体
+*	形    参: pcFontFile - 字体文件  dwFontSize - 字体大小
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int FreeTypeFontInit(char *pcFontFile, unsigned int dwFontSize)
 {
     int iError;
@@ -44,6 +54,17 @@ static int FreeTypeFontInit(char *pcFontFile, unsigned int dwFontSize)
     }
     return 0;
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: FreeTypeGetFontBitmap
+*	功能说明: 获取freetype字体位图
+*	形    参: dwCode - 字符编码  ptFontBitMap - 字体位图存储位置
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int FreeTypeGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap)
 {
 	int iError;
@@ -74,6 +95,17 @@ static int FreeTypeGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap
 
 	return 0;
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: FreeTypeInit
+*	功能说明: FreeType 初始化字体,给其他文件使用
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int FreeTypeInit(void)
 {
 	return RegisterFontOpr(&g_tFreeTypeFontOpr);

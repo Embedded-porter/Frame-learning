@@ -2,8 +2,8 @@
 #include <encoding_manager.h>
 #include <string.h>
 
-static int isAsciiCoding(unsigned char *pucBufHead);
-static int AsciiGetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEnd, unsigned int *pdwCode);
+static int isAsciiCoding(unsigned char *pucBufHead); /* ASCII编码判断 */
+static int AsciiGetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEnd, unsigned int *pdwCode); /* 从缓冲区中取得一个ASCII码 */
 
 static T_EncodingOpr g_tAsciiEncodingOpr = {
 	.name          = "ascii",
@@ -11,6 +11,17 @@ static T_EncodingOpr g_tAsciiEncodingOpr = {
 	.isSupport     = isAsciiCoding,
 	.GetCodeFrmBuf = AsciiGetCodeFrmBuf,
 };
+
+/*
+*********************************************************************************************************
+*	函 数 名: isAsciiCoding
+*	功能说明: 判断是否是ascii编码
+*	形    参: pucBufHead - 缓冲区头指针
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int isAsciiCoding(unsigned char *pucBufHead)
 {
 	const char aStrUtf8[]    = {0xEF, 0xBB, 0xBF, 0};
@@ -37,6 +48,17 @@ static int isAsciiCoding(unsigned char *pucBufHead)
 		return 1;
 	}
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: AsciiGetCodeFrmBuf
+*	功能说明: 从缓冲区中取得ASCII码的字符
+*	形    参: pucBufStart - 缓冲区头指针 pucBufEnd - 缓冲区尾指针 pdwCode - 获取到ASCII码
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int AsciiGetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEnd, unsigned int *pdwCode)
 {
 	unsigned char *pucBuf = pucBufStart;
@@ -69,6 +91,16 @@ static int AsciiGetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufE
 	}
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: AsciiEncodingInit
+*	功能说明: ASCII编码初始化,给其他函数调用
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int AsciiEncodingInit(void)
 {
 	AddFontOprForEncoding(&g_tAsciiEncodingOpr, GetFontOpr("freetype"));

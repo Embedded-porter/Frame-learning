@@ -3,8 +3,18 @@
 #include <string.h>
 #include <stdlib.h>
 
-static PT_EncodingOpr g_ptEncodingOprHead;
+static PT_EncodingOpr g_ptEncodingOprHead = NULL; /*编码管理链表*/
 
+/*
+*********************************************************************************************************
+*	函 数 名: RegisterEncodingOpr
+*	功能说明: 通过单链表注册编码
+*	形    参: dwCode - 字符编码  ptFontBitMap - 字体位图存储位置
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int RegisterEncodingOpr(PT_EncodingOpr ptEncodingOpr)
 {
     PT_EncodingOpr ptTmp;
@@ -27,7 +37,16 @@ int RegisterEncodingOpr(PT_EncodingOpr ptEncodingOpr)
 
     return 0;
 }
-
+/*
+*********************************************************************************************************
+*	函 数 名: ShowEncodingOpr
+*	功能说明: 打印出所以的编码格式
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 void ShowEncodingOpr(void)
 {
     int i = 0;
@@ -40,6 +59,16 @@ void ShowEncodingOpr(void)
     }
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: SelectEncodingOprForFile
+*	功能说明: 选择文件的编码格式
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 PT_EncodingOpr SelectEncodingOprForFile(unsigned char *pucFileBufHead)
 {
     PT_EncodingOpr ptTmp = g_ptEncodingOprHead;
@@ -54,6 +83,16 @@ PT_EncodingOpr SelectEncodingOprForFile(unsigned char *pucFileBufHead)
     return NULL;
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: AddFontOprForEncoding
+*	功能说明: 为编码格式添加字体
+*	形    参: ptEncodingOpr - 编码格式  ptFontOpr - 字体
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int AddFontOprForEncoding(PT_EncodingOpr ptEncodingOpr, PT_FontOpr ptFontOpr)
 {
     PT_FontOpr ptFontOprCpy;
@@ -78,6 +117,16 @@ int AddFontOprForEncoding(PT_EncodingOpr ptEncodingOpr, PT_FontOpr ptFontOpr)
         }
     }
 }
+/*
+*********************************************************************************************************
+*	函 数 名: DelFontOprFrmEncoding
+*	功能说明: 删除字体的编码格式
+*	形    参: ptEncodingOpr - 编码格式  ptFontOpr - 字体
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int DelFontOprFrmEncoding(PT_EncodingOpr ptEncodingOpr, PT_FontOpr ptFontOpr)
 {
     PT_FontOpr ptTmp;
@@ -120,6 +169,16 @@ int DelFontOprFrmEncoding(PT_EncodingOpr ptEncodingOpr, PT_FontOpr ptFontOpr)
     }
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: EncodingInit
+*	功能说明: 全部编码格式初始化
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int EncodingInit(void)
 {
     int iError;

@@ -10,8 +10,8 @@ static int g_iFdHZK;
 static unsigned char *g_pucHZKMem;
 static unsigned char *g_pucHZKMemEnd;
 
-static int GBKFontInit(char *pcFontFile, unsigned int dwFontSize);
-static int GBKGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap);
+static int GBKFontInit(char *pcFontFile, unsigned int dwFontSize); /*GBK初始化字体*/
+static int GBKGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap); /*GBK获取字体位图*/
 
 static T_FontOpr g_tGBKFontOpr = {
 	.name          = "gbk",
@@ -19,6 +19,16 @@ static T_FontOpr g_tGBKFontOpr = {
 	.GetFontBitmap = GBKGetFontBitmap,
 };
 
+/*
+*********************************************************************************************************
+*	函 数 名: GBKFontInit
+*	功能说明: 初始化GBK字体
+*	形    参: pcFontFile - 字体文件    dwFontSize - 字体大小
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int GBKFontInit(char *pcFontFile, unsigned int dwFontSize)
 {
 	struct stat tStat;
@@ -49,6 +59,17 @@ static int GBKFontInit(char *pcFontFile, unsigned int dwFontSize)
 	g_pucHZKMemEnd = g_pucHZKMem + tStat.st_size;
 	return 0;
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: GBKGetFontBitmap
+*	功能说明: 获取GBK字体位图
+*	形    参: dwCode - 字符编码 ptFontBitMap - 字体位图存储位置
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int GBKGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap)
 {
 	int iArea;
@@ -94,6 +115,16 @@ static int GBKGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap)
 	return 0;
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: GBKInit
+*	功能说明: 初始化GBK字体
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int GBKInit(void)
 {
 	return RegisterFontOpr(&g_tGBKFontOpr);

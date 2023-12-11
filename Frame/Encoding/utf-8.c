@@ -2,8 +2,8 @@
 #include <encoding_manager.h>
 #include <string.h>
 
-static int isUtf8Coding(unsigned char *pucBufHead);
-static int Utf8GetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEnd, unsigned int *pdwCode);
+static int isUtf8Coding(unsigned char *pucBufHead); /* UTF-8编码判断 */
+static int Utf8GetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEnd, unsigned int *pdwCode); 
 
 static T_EncodingOpr g_tUtf8EncodingOpr = {
 	.name          = "utf-8",
@@ -11,6 +11,17 @@ static T_EncodingOpr g_tUtf8EncodingOpr = {
 	.isSupport     = isUtf8Coding,
 	.GetCodeFrmBuf = Utf8GetCodeFrmBuf,
 };
+
+/*
+*********************************************************************************************************
+*	函 数 名: isUtf8Coding
+*	功能说明: 判断是否是UTF-8编码
+*	形    参: pucBufHead - 缓冲区头指针
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int isUtf8Coding(unsigned char *pucBufHead)
 {
 	const char aStrUtf8[]    = {0xEF, 0xBB, 0xBF, 0};
@@ -25,10 +36,16 @@ static int isUtf8Coding(unsigned char *pucBufHead)
 	}
 }
 
-/* 获得前导为1的位的个数,判断UTF-8编码使用多少字节表示
- * 比如二进制数 11001111 的前导1有2位
- *              11100001 的前导1有3位
- */
+/*
+*********************************************************************************************************
+*	函 数 名: GetPreOneBits
+*	功能说明: 获得前导为1的位的个数,判断UTF-8编码使用多少字节表示
+*	形    参: ucVal 字符
+*	返 回 值: 前导为1的位的个数
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int GetPreOneBits(unsigned char ucVal)
 {
 	int i;
@@ -44,6 +61,17 @@ static int GetPreOneBits(unsigned char ucVal)
 	return j;
 
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: Utf8GetCodeFrmBuf
+*	功能说明: 从缓冲区中取得UTF-8编码的字符
+*	形    参: pucBufStart - 缓冲区头指针 pucBufEnd - 缓冲区尾指针 pdwCode - 获取到的UTF-8编码
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int Utf8GetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEnd, unsigned int *pdwCode)
 {
 #if 0
@@ -101,6 +129,16 @@ static int Utf8GetCodeFrmBuf(unsigned char *pucBufStart, unsigned char *pucBufEn
 	}
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: Utf8EncodingInit
+*	功能说明: 初始化UTF-8编码,给其他函数调用
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int  Utf8EncodingInit(void)
 {
 	AddFontOprForEncoding(&g_tUtf8EncodingOpr, GetFontOpr("freetype"));

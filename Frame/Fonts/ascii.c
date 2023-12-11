@@ -1,17 +1,17 @@
 #include <config.h>
 #include <fonts_manager.h>
 
+#define FONTDATAMAX 4096  /* ASCII字库最大字节数 */
 
-#define FONTDATAMAX 4096
-
-static int ASCIIFontInit(char *pcFontFile, unsigned int dwFontSize);
-static int ASCIIGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap);
+static int ASCIIFontInit(char *pcFontFile, unsigned int dwFontSize); /*ASCII初始化字体*/
+static int ASCIIGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap); /*ASCII获取字体位图*/
 
 static T_FontOpr g_tASCIIFontOpr = {
     .name = "ascii",
     .FontInit = ASCIIFontInit,
     .GetFontBitmap = ASCIIGetFontBitmap,
 };
+/*ASCII字库*/
 static const unsigned char fontdata_8x16[FONTDATAMAX] = {
 
     /* 0 0x00 '^@' */
@@ -4624,6 +4624,16 @@ static const unsigned char fontdata_8x16[FONTDATAMAX] = {
 
 };
 
+/*
+*********************************************************************************************************
+*	函 数 名: ASCIIFontInit
+*	功能说明: ASCII 字体初始化
+*	形    参: pcFontFile - 字库文件    dwFontSize - 字体大小
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int ASCIIFontInit(char *pcFontFile, unsigned int dwFontSize)
 {
     if (dwFontSize != 16)
@@ -4634,6 +4644,17 @@ static int ASCIIFontInit(char *pcFontFile, unsigned int dwFontSize)
     }
     return 0;
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: ASCIIGetFontBitmap
+*	功能说明: ASCII 获取字体位图
+*	形    参: dwCode - 字符编码 ptFontBitMap - 字体位图存储位置
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 static int ASCIIGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap)
 {
 	int iPenX = ptFontBitMap->iCurOriginX;
@@ -4659,6 +4680,16 @@ static int ASCIIGetFontBitmap(unsigned int dwCode, PT_FontBitMap ptFontBitMap)
 	return 0;
 }
 
+/*
+*********************************************************************************************************
+*	函 数 名: ASCIIInit
+*	功能说明: ASCII 初始化,提供给其他的文件使用
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/11    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
 int ASCIIInit(void)
 {
 	return RegisterFontOpr(&g_tASCIIFontOpr);
