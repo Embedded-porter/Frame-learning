@@ -1,12 +1,52 @@
 #ifndef CAL_LEDDEVICE_H
 #define CAL_LEDDEVICE_H
 
-extern int TriggerFd,BrightnessFd;
+/*
+*********************************************************************************************************
+*	函 数 名: CAL_LEDDeviceInit
+*	功能说明: 芯片抽象层的LED初始化函数, 芯片不一样时请修改此函数
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
+int CAL_LEDDeviceInit(struct LEDDevice *ptLEDDevice);
 
+/*
+*********************************************************************************************************
+*	函 数 名: CAL_LEDDeviceControl
+*	功能说明: 芯片抽象层的LED控制函数, 芯片不一样时请修改此函数
+*	形    参: ptLEDDevice - 指定哪个LED设备 iStatus - LED设备状态
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
+int CAL_LEDDeviceControl(struct LEDDevice *ptLEDDevice, int iStatus);
 
-extern int CAL_LEDDeviceInit(struct LEDDevice *ptLEDDevice);
-extern int CAL_LEDDeviceControl(struct LEDDevice *ptLEDDevice, int iStatus);
-extern int CAL_LEDDeviceSetColor(struct LEDDevice *ptLEDDevice, int iR, int iG, int iB);
-extern int CAL_LEDDeviceSetBrightness(struct LEDDevice *ptLEDDevice, int iBrightness);
+/*
+*********************************************************************************************************
+*	函 数 名: CAL_LEDDeviceSetColor
+*	功能说明: 芯片抽象层的LED颜色设置函数, 芯片不一样时请修改此函数
+*	形    参: ptLEDDevice - 指定哪个LED设备  iR - 红色值  iG - 绿色值  iB - 蓝色值
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
+int CAL_LEDDeviceSetColor(struct LEDDevice *ptLEDDevice, int iR, int iG, int iB);
+
+/*
+*********************************************************************************************************
+*	函 数 名: CAL_LEDDeviceSetBrightness
+*	功能说明: 芯片抽象层的LED亮度设置函数, 芯片不一样时请修改此函数
+*	形    参: ptLEDDevice - 指定哪个LED设备  iBrightness - 亮度
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
+int CAL_LEDDeviceSetBrightness(struct LEDDevice *ptLEDDevice, int iBrightness);
 
 #endif // !CAL_LEDDEVICE_H

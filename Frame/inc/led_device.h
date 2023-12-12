@@ -16,6 +16,16 @@ typedef struct LEDDevice
     int (*SetBrightness)(struct LEDDevice *ptLEDDevice, int iBrightness);
 } LEDDevice, *PLEDDevice;
 
-extern  PLEDDevice GetLEDDevice(int which);
+/*
+*********************************************************************************************************
+*	函 数 名: GetLEDDevice
+*	功能说明: 获取LED设备函数
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
+PLEDDevice GetLEDDevice(int which);
 
 #endif

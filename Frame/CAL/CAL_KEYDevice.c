@@ -2,17 +2,17 @@
 #include "cal_keydevice.h"
 
 
-/**********************************************************************
- * 函数名称： thread_function
- * 功能描述： 输入事件读取线程
- * 输入参数： 无
- * 输出参数： 
- * 返 回 值： 0-成功, 其他值-失败
- * 修改日期        版本号     修改人	      修改内容
- * -----------------------------------------------
- * 2023/11/21	     V1.0	  @尝试早睡		      创建
- ***********************************************************************/
-void *thread_function(void *arg)
+/*
+*********************************************************************************************************
+*	函 数 名: KeyProcessPthread
+*	功能说明: 按键处理线程
+*	形    参: 无
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
+*********************************************************************************************************
+*/
+ static void *KeyProcessPthread(void *arg)
 {
     int fd = *(int *)arg;
     struct input_event in_ev;
@@ -35,15 +35,14 @@ void *thread_function(void *arg)
     return NULL;
 }
 
-
 /*
 *********************************************************************************************************
 *	函 数 名: CAL_KEYDeviceInit
-*	功能说明: 按键初始化
+*	功能说明: 芯片抽象层的按键初始化函数, 芯片不一样时请修改此函数
 *	形    参: 无
-*	返 回 值: 返回值1 表示按下(导通），0表示未按下（释放）
-*   日期        版本号     修改人	      修改内容
-*   2023/11/21   V1.0      @尝试早睡	      创建
+*	返 回 值: 无
+*   日期          版本号        修改人
+*   2023/12/12    V1.0        @尝试早睡
 *********************************************************************************************************
 */
 void CAL_KEYDeviceInit(void)
@@ -62,7 +61,7 @@ void CAL_KEYDeviceInit(void)
         free(KeyDevice);
         close(KeyDevice->InputDeviceFd);
     }
-    int result = pthread_create(&thread_input, NULL, thread_function, &KeyDevice->InputDeviceFd);
+    int result = pthread_create(&thread_input, NULL, KeyProcessPthread, &KeyDevice->InputDeviceFd);
     if (result != 0)
     {
         perror("Thread creation failed");
