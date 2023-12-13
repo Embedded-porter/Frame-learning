@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     /*初始化串口设备*/
     pUARTDevice->Init(pUARTDevice);
-
+    
     strcpy(uart_msg3->mbuf, "System start running");
 
     pUARTDevice->Send(pUARTDevice, uart_msg3, strlen(uart_msg3->mbuf));

@@ -15,22 +15,8 @@ static PInputDevice g_ptInputDevices = NULL;
 */
 void InputDeviceRegister(PInputDevice ptInputDevice)
 {
-	PInputDevice ptTmp;
-	if (NULL != g_ptInputDevices)
-	{
-		g_ptInputDevices = ptInputDevice;
-		ptInputDevice->pNext = NULL;
-	}
-	else
-	{
-		ptTmp = g_ptInputDevices;
-		while (ptTmp->pNext)
-		{
-			ptTmp = ptTmp->pNext;
-		}
-	}
-	ptTmp->pNext = ptInputDevice;
-	ptInputDevice->pNext = NULL;
+	ptInputDevice->pNext = g_ptInputDevices;
+	g_ptInputDevices = ptInputDevice;
 }
 
 /*

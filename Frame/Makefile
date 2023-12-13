@@ -1,5 +1,7 @@
+CROSS_COMPILE =
 # CROSS_COMPILE = arm-linux-
-CROSS_COMPILE = arm-linux-gnueabihf-
+#CROSS_COMPILE = arm-linux-gnueabihf-
+
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
 CC		= $(CROSS_COMPILE)gcc
@@ -14,10 +16,19 @@ OBJDUMP		= $(CROSS_COMPILE)objdump
 export AS LD CC CPP AR NM
 export STRIP OBJCOPY OBJDUMP
 
-CFLAGS := -Wall -O2 -g
+CFLAGS := -Wall -O2 -g         
 CFLAGS += -I $(shell pwd)/inc   # Find header files
-CFLAGS += -I $(shell pwd)       # 当前目录下的头文件
-CFLAGS += -I /usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/freetype2
+CFLAGS += -I $(shell pwd)       # The header files in the current directory
+
+#Connect to different header files based on the compilation chain
+ifeq ($(CROSS_COMPILE),)
+    CFLAGS += -I /usr/local/include/freetype2
+else ifeq ($(CROSS_COMPILE), arm-linux-)
+    CFLAGS += -I /usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/freetype2
+else ifeq ($(CROSS_COMPILE), arm-linux-gnueabihf-)
+    CFLAGS += -I /usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/include/freetype2
+endif
+
 
 LDFLAGS := -lpthread -lm -lfreetype    # Choose link library,example -lpthread      
 
