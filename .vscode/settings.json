@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "display_device.h": "c",
+        "fonts_manager.h": "c",
+        "config.h": "c"
+    }
+}
